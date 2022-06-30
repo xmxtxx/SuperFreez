@@ -1,1 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    margin-left: 1%;
+    margin-right: 1%;
+}
 
+h1{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.option{
+    color: black;
+    border-style: solid;
+    border-radius: 5px;
+    text-decoration: none;
+}
