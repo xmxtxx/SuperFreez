@@ -16,36 +16,48 @@
 
     <!--Implementation Php!-->
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th> Infos </th>
+    <?php
+    include './php/conection.php'; // Connection einfügen
+    $conn = OpenCon();
+    $sql = "SELECT * FROM Freeze";
 
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td><table>
-                <tr>
-                    <td>Anzahl Fächer: </td>
-                    <td>5</td>
-                </tr>
-                
-                <tr>
-                    <td>Inventar: </td>
-                    <td>95%</td>
-                </tr>
-                <tr>
-                    <td>Staus: </td>
-                    <td>Operabel</td>
-                </tr>
-                <tr>
-                    <td><a href="#" class= "option">SuperFreezer verwalten</a></td>
-                </tr>
-            </table>
-            </td>
-        </tr>
+    $db_erg = mysqli_query($conn, $sql);
+    while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
 
-    </table>
+    ?>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th> Infos </th>
+
+            </tr>
+            <tr>
+                <td> <?php echo $zeile['FreezerName']; ?></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>Anzahl Fächer: </td>
+                            <td>5</td>
+                        </tr>
+
+                        <tr>
+                            <td>Inventar: </td>
+                            <td>95%</td>
+                        </tr>
+                        <tr>
+                            <td>Typ: </td>
+                            <td><?php echo $zeile['Typ']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="option">SuperFreezer verwalten</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+    <?php
+    } ?>
 
 
 
