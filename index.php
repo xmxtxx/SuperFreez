@@ -15,7 +15,12 @@
 
 
     <!--Implementation Php!-->
+    <table>
+            <tr>
+                <th>Name</th>
+                <th> Infos </th>
 
+            </tr>
     <?php
     include './php/conection.php'; // Connection einfügen
     $conn = OpenCon();
@@ -25,16 +30,11 @@
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
 
     ?>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th> Infos </th>
-
-            </tr>
+   
             <tr>
                 <td> <?php echo $zeile['FreezerName']; ?></td>
                 <td>
-                    <table>
+                    <table class="info">
                         <tr>
                             <td>Anzahl Fächer: </td>
                             <td>5</td>
@@ -55,10 +55,10 @@
                 </td>
             </tr>
 
-        </table>
     <?php
     } ?>
 
+</table>
 
 
 
