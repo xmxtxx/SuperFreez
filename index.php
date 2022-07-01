@@ -13,7 +13,7 @@
 
     <h1>Meine SuperFreezer</h1>
 
-
+    <a href="#">Hinzufügen</a>
     <!--Implementation Php!-->
     <table>
             <tr>
