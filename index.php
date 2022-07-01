@@ -29,6 +29,7 @@
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
 
         $id = $zeile['FreezeId'];
+    
         
     $sql2 = "SELECT * FROM fach WHERE FreezeId =$id";
     $db_erg2 = mysqli_query($conn, $sql2);
@@ -42,8 +43,10 @@
                       while ($zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC)) {
                         $i++;
                      }
-                     echo $i; ?></p>
-                    <p>Inventar: <a href="#">Bearbeiten</a></p>
+                
+                     echo $i;?></p>
+                    
+                    <p>Inventar: <a href="./pages/edit.php?id='<?php echo $id ?>'">Bearbeiten</a></p>
                     <p>Typ: <?php echo $zeile['Typ']; ?></p>
                     <p><a href="#" class="option">SuperFreezer verwalten</a></p>
                 </td>

@@ -14,7 +14,8 @@ include '../php/conection.php'; // Connection einfügen
    // $sqlStatement = "SELECT MAX(fachId) FROM Fach";
     //$sqlAblauf = "SELECT * from Produkt where ProduktAblauf >= NOW() ORDER BY ProduktAblauf Limit 1 ";
     //$sqlUpdate = "UPDATE Freeze SET FreezerName='' where FreezeId=1 "
-    $sql = "SELECT * FROM Freeze";
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM Freeze WHERE FreezeId=$id";
     $db_erg = mysqli_query($conn, $sql);
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
  <form action="Freezer" method="post">
