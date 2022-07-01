@@ -92,7 +92,19 @@ for($i = 1; $i<=$anzahl;$i++){
     $temp = $_POST[$s];
     $id = $_POST['id'];
     $reg = " insert into fach(FachZahl, FreezeId, FachTemp) values ('$i' , '$id', '$temp')";
-    echo $reg;
+    mysqli_query($conn, $reg);
+
+
+
+//inventar erstellen
+    $sql2 = "SELECT * FROM fach"; //sql abfrage
+    
+        $db_erg = mysqli_query($conn, $sql2); //verbinden
+        
+        while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) { //Auslesehen welche daten gespeichert worden sind
+            $id = $zeile['Fachid'];
+        }  
+    $reg = " insert into inventar(FachId) values ('$id')";
     mysqli_query($conn, $reg);
   }
   header('Location: ../index.php'); // weiterleitung
