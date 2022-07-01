@@ -19,7 +19,6 @@
             <tr>
                 <th>Name</th>
                 <th> Infos </th>
-
             </tr>
     <?php
     include './php/conection.php'; // Connection einfügen
@@ -34,24 +33,10 @@
             <tr>
                 <td> <?php echo $zeile['FreezerName']; ?></td>
                 <td>
-                    <table class="info">
-                        <tr>
-                            <td>Anzahl Fächer: </td>
-                            <td>5</td>
-                        </tr>
-
-                        <tr>
-                            <td>Inventar: </td>
-                            <td>95%</td>
-                        </tr>
-                        <tr>
-                            <td>Typ: </td>
-                            <td><?php echo $zeile['Typ']; ?></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#" class="option">SuperFreezer verwalten</a></td>
-                        </tr>
-                    </table>
+                    <p>Anzahl Fächer: 5</p>
+                    <p>Inventar: 95%</p>
+                    <p>Typ: <?php echo $zeile['Typ']; ?></p>
+                    <p><a href="#" class="option">SuperFreezer verwalten</a></p>
                 </td>
             </tr>
 

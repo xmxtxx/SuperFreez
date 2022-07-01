@@ -32,3 +32,7 @@ tr:nth-child(even) {
     border-radius: 5px;
     text-decoration: none;
 }
+p{
+  margin-bottom: 2%;
+  text-align: center;
+}
