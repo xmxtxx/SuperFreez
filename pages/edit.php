@@ -19,7 +19,7 @@ include '../php/conection.php'; // Connection einfügen
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
  <form action="Freezer" method="post">
  <label for="fname">Freezer Name:</label>
-       <input type="FName" name="FName" id="FName" value="<?php $zeile['FreezerName'] ?>"> 
+       <input type="FName" name="FName" id="FName" value="<?php echo $zeile['FreezerName'] ?>"> 
 
        <input type="submit" value="Bestätigen">
     <form>
