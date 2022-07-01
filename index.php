@@ -13,7 +13,7 @@
 
     <h1>Meine SuperFreezer</h1>
 
-    <a href="#">Hinzufügen</a>
+    <a href="./pages/create.php">Hinzufügen</a>
     <!--Implementation Php!-->
     <table>
             <tr>
@@ -28,13 +28,22 @@
     $db_erg = mysqli_query($conn, $sql);
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
 
+        $id = $zeile['FreezeId'];
+        
+    $sql2 = "SELECT * FROM fach WHERE FreezeId =$id";
+    $db_erg2 = mysqli_query($conn, $sql2);
     ?>
    
             <tr>
                 <td> <?php echo $zeile['FreezerName']; ?></td>
                 <td>
-                    <p>Anzahl Fächer: 5</p>
-                    <p>Inventar: 95%</p>
+                    <p>Anzahl Fächer:<?php
+                    $i = 0;
+                      while ($zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC)) {
+                        $i++;
+                     }
+                     echo $i; ?></p>
+                    <p>Inventar: <a href="#">Bearbeiten</a></p>
                     <p>Typ: <?php echo $zeile['Typ']; ?></p>
                     <p><a href="#" class="option">SuperFreezer verwalten</a></p>
                 </td>
