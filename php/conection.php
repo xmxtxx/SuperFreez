@@ -2,8 +2,8 @@
 function OpenCon(){
     $host ="localhost";
     $database="superfreezer";
-    $user="Super";
-    $password="Freeze";
+    $user="root";
+    $password="";
 
 
     $connection = new mysqli($host,$user,$password,$database) or die ("Datenbankverbindung Fehlgeschlagen");
