@@ -15,7 +15,7 @@ if(isset($_POST['Next'])){
 
     $reg = " insert into produkt(InventarId, ProduktName, ProduktAblauf, ProduktVerfall, ProduktMenge, ProduktArt) values ($invid, '$Name', '$ablauf', '$verfall', '$menge', '$art')";
     echo $reg;
-   // mysqli_query($conn, $reg);
+    mysqli_query($conn, $reg);
     $id = $_POST['id'];
     echo $id;
     header("Location: ./inventory.php?id=$id"); // weiterleitung
@@ -117,7 +117,7 @@ if(isset($_POST['Next'])){
                         <?php echo $zeile4['ProduktName']."<br>";?>
                         <?php }?>
                         </td>
-                        <td><a href="./inventory.php?id='<?php echo $id ?>'&Next=1&invid='<?php echo $invid ?>'">Produkt Hinzufügen</a></td>
+                        <td><a href="./inventory.php?id=<?php echo $id ?>&Next=1&invid='<?php echo $invid ?>'">Produkt Hinzufügen</a></td>
                     </tr>
             <?php
                 }
