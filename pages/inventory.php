@@ -71,6 +71,7 @@ if (isset($_POST['Abruch'])) {
 
 <body>
     <?php
+    if(isset($_GET['Next'])){
     if ($_GET['Next'] == 1) { ?>
 
         <h1>Produkt Hinzufügen</h1>
@@ -123,7 +124,7 @@ if (isset($_POST['Abruch'])) {
             <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
             <input type="submit" value="Löschen" name="loeschen">
         </form>
-    <?php  } else {
+    <?php } } else {
 
     ?>
         <h1>Inventar</h1>

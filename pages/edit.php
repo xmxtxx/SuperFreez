@@ -42,14 +42,23 @@ include '../php/conection.php'; // Connection einfügen
     $id = $_GET['id'];
     $sql = "SELECT * FROM freeze WHERE FreezeId=$id";
     $db_erg = mysqli_query($conn, $sql);
-    $sql2 = "SELECT * FROM fach WHERE FreezeId=$id";    
+    
+    $sql2 = "SELECT * FROM fach WHERE FreezeId=$id";
+    $db_erg2 = mysqli_query($conn, $sql2); 
+    $i = 0;
+        while ($zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC)) {
+            $i++;}
+            
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
+    
     
  <form action="edit.php" method="POST">
  <label for="FreezerName">Freezer Name:</label>
        <input type="text" name="FreezerName" id="FreezerName" value="<?php echo $zeile['FreezerName'] ?>"> <br> 
     <label for= "typ">Typ:</Label>
         <input type="text" name ="typ" id="typ" value="<?php echo $zeile['Typ']?>">
+    <label for="fach">fach:</label>
+        <input type="text" name ="fach" id="fach" value="<?php echo $i?>">
 
 
         <br>
