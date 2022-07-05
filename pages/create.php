@@ -43,7 +43,9 @@ if($n == 1){?>
 
         $Name = $_POST['fname'];
         $typ = $_POST['typ'];
-        $reg = " insert into freeze(FreezerName , Typ, KundeId) values ('$Name' , '$typ', '1')";
+        session_start();
+        $kid = $_SESSION['id'];
+        $reg = " insert into freeze(FreezerName , Typ, KundeId) values ('$Name' , '$typ', '$kid')";
         mysqli_query($conn, $reg);
 
 

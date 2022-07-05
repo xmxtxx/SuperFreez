@@ -10,6 +10,31 @@
 </head>
 
 <body>
+<?php 
+session_start();
+    if($_SESSION['logged'] != true){
+
+        ?>
+      <h1>Login</h1>
+              <form action="./php/authenticate.php" method="post">
+                  <input type="text" name="username" placeholder="username" required><br>
+                  <input type="password" name="passwordl" placeholder="Password" required><br>
+                 <button type="submit" name="submit">Login</button>
+              </form>
+
+              <h1>Register</h1>
+              <form action="./php/register.php" method="post">
+                  <input type="text" name="user" placeholder="username" required><br>
+                  <input type="password" name="passwort" placeholder="passwort" required><br>
+                <input type="text" name="kName" placeholder="Max Mustermann" register>
+                 <button type="submit" name="submit">Register</button>
+              </form>
+<?php
+
+
+    }else{
+
+?>
 
     <h1>Meine SuperFreezer</h1>
 
@@ -23,7 +48,9 @@
     <?php
     include './php/conection.php'; // Connection einfügen
     $conn = OpenCon();
-    $sql = "SELECT * FROM Freeze";
+
+    $kid = $_SESSION['id'];
+    $sql = "SELECT * FROM Freeze WHERE KundeId=$kid";
 
     $db_erg = mysqli_query($conn, $sql);
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
@@ -58,7 +85,7 @@
 </table>
 
 
-
+<?php }?>
 </body>
 
 </html>
