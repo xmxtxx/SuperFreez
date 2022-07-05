@@ -20,35 +20,31 @@ if (isset($_POST['Next'])) {
     echo $id;
     header("Location: ./inventory.php?id=$id"); // weiterleitung
 }
-if(isset($_POST['loeschen'])){
+if (isset($_POST['loeschen'])) {
 
     include '../php/conection.php'; // Connection einfügen
-    $conn = OpenCon();  
+    $conn = OpenCon();
     $menge = $_POST['menge'];
     $minus = $_POST['lonumber'];
     $idw = $_POST['ddid'];
 
-    $neuemenge = $menge-$minus;
+    $neuemenge = $menge - $minus;
 
 
-    if($neuemenge == 0){
-//löschen
-    $regupd = "DELETE from produkt WHERE  Produktid= $idw";
+    if ($neuemenge == 0) {
+        //löschen
+        $regupd = "DELETE from produkt WHERE Produktid= $idw";
         mysqli_query($conn, $regupd);
         $id = $_POST['id'];
-    echo $id;
-    header("Location: ./inventory.php?id=$id"); // weiterleitung
-    }else{
-        $regupd = "UPDATE produkt Set ProduktMenge = $neuemenge";
+        echo $id;
+        header("Location: ./inventory.php?id=$id"); // weiterleitung
+    } else {
+        $regupd = "UPDATE produkt Set ProduktMenge = $neuemenge WHERE Produktid= $idw";
         mysqli_query($conn, $regupd);
         $id = $_POST['id'];
         echo $id;
         header("Location: ./inventory.php?id=$id"); // weiterleitung
     }
-
-
-    
-
 }
 
 
@@ -93,6 +89,7 @@ if(isset($_POST['loeschen'])){
             <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
             <input type="text" value="<?php echo $_GET['invid']; ?>" name="invid" hidden>
             <input type="submit" value="Hinzufuegen" name="Next">
+            <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
         </form>
 
     <?php
@@ -102,26 +99,26 @@ if(isset($_POST['loeschen'])){
         include '../php/conection.php'; // Connection einfügen
         $conn = OpenCon();
         $sql5 = "SELECT * FROM produkt WHERE InventarId=$invid";
-        $db_erg5 = mysqli_query($conn, $sql5);?>
-    <form method = "POST">
-        <?php while ($zeile5 = mysqli_fetch_array($db_erg5, MYSQLI_ASSOC)) {?>
-            <input type="text" value="<?php echo $zeile5['Produktid']; ?>" name="ddid" hidden>
-            <label for="lonumber">Anzahl der zulöschenden Exemplare für: <?php echo $zeile5['ProduktName'];?></label>
-            <input type="number" name="lonumber" max="<?php echo $zeile5['ProduktMenge'] ?>" min="0"><br>
-            <input type="text" value="<?php echo $zeile5['ProduktMenge']; ?>" name="menge" hidden>
+        $db_erg5 = mysqli_query($conn, $sql5); ?>
+        <form method="POST">
+            <?php while ($zeile5 = mysqli_fetch_array($db_erg5, MYSQLI_ASSOC)) { ?>
+                <input type="text" value="<?php echo $zeile5['Produktid']; ?>" name="ddid" hidden>
+                <label for="lonumber">Anzahl der zulöschenden Exemplare für: <?php echo $zeile5['ProduktName']; ?></label>
+                <input type="number" name="lonumber" max="<?php echo $zeile5['ProduktMenge'] ?>" min="0"><br>
+                <input type="text" value="<?php echo $zeile5['ProduktMenge']; ?>" name="menge" hidden>
 
-<?php
-        }
-?>
-    <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
-    <input type="submit" name="loeschen" value="Löschen">
-    </form>
-  <?php  }
-    else{ 
+            <?php
+            }
+            ?>
+            <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
+            <input type="submit" name="loeschen" value="Löschen">
+            <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
+        </form>
+    <?php  } else {
 
     ?>
         <h1>Inventar</h1>
-<a href="../index.php">Home</a>
+        <a href="../index.php">Home</a>
         <table>
             <tr>
                 <th>FreezerName</th>
@@ -164,8 +161,8 @@ if(isset($_POST['loeschen'])){
                         <td><?php echo $zeile['FachZahl']; ?></td>
                         <td>
                             <?php while ($zeile4 = mysqli_fetch_array($db_erg4, MYSQLI_ASSOC)) {
-                                 echo $zeile4['ProduktName'] .", Art: ". $zeile4['ProduktArt'] . ", Verfallsdatum: ". $zeile4['ProduktVerfall']. ", Anzahl: ". $zeile4['ProduktMenge']."<br>"; 
-                             } ?>
+                                echo $zeile4['ProduktName'] . ", Art: " . $zeile4['ProduktArt'] . ", Verfallsdatum: " . $zeile4['ProduktVerfall'] . ", Anzahl: " . $zeile4['ProduktMenge'] . "<br>";
+                            } ?>
                         </td>
                         <td><a href="./inventory.php?id=<?php echo $id ?>&Next=1&invid='<?php echo $invid ?>'">Produkt Hinzufügen</a>
                             <a href="./inventory.php?id=<?php echo $id ?>&Next=2&invid='<?php echo $invid ?>'">Produkt Löschen</a>
