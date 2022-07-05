@@ -1,4 +1,28 @@
+<?php
+    
+    if(isset($_POST['Bestaetigen'])){
+        
+    include '../php/conection.php'; // Connection einfügen
+    $conn = OpenCon();
+        $fname = $_POST['FreezerName'];
+        
+        $id = $_POST['id'];
+        $reg2 = "UPDATE freeze SET FreezerName = '$fname' WHERE FreezeId=$id";
+            echo $reg2;  
 
+        mysqli_query($conn, $reg2);
+        header("Location: ../index.php");
+    }
+    if (isset($_POST['Loeschen'])){
+            
+        $loeschen = "DELETE * from freeze where id = '$id' limit=1 ";
+
+        mysqli_query($conn,$loeschen);
+        header('Location: ../index.php');
+
+
+    }
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +45,7 @@ include '../php/conection.php'; // Connection einfügen
     $sql2 = "SELECT * FROM fach WHERE FreezeId=$id";    
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
     
- <form action="edit.php" method="post">
+ <form action="edit.php" method="POST">
  <label for="FreezerName">Freezer Name:</label>
        <input type="text" name="FreezerName" id="FreezerName" value="<?php echo $zeile['FreezerName'] ?>"> <br> 
     <label for= "typ">Typ:</Label>
@@ -30,33 +54,11 @@ include '../php/conection.php'; // Connection einfügen
 
         <br>
         <input type="text" name="id" value="<?php echo $_GET['id']; ?>" hidden>
-       <button type="submit" value="Bestätigen" name="Bestätigen">Bestätigen</button>
-       <button type="submit" value="loeschen" name="loeschen">Löschen</button>
+       <input type="submit" value="Bestätigen" name="Bestaetigen">
+       <input type="submit" value="löschen" name="loeschen">
     <form>
     <?php }?>
 
-    <?php
-    
-    if(isset($_POST['Bestätigen'])){
-        $fname = mysqli_real_escape_string($conn, $_POST['FreezerName']);
-        //$fname = $_POST['FreezerName'];
-        
-    $id = $_POST['id'];
-            $reg2 = "UPDATE freeze SET FreezerName = '$fname' WHERE FreezeId=$id";
-            echo $reg2;  
-
-        mysqli_query($conn, $reg2);
-        header('Location: ../index.php');
-    }
-    if (isset($_POST['Loeschen'])){
-            
-        $loeschen = "DELETE * from freeze where id = '$id' limit=1 ";
-
-        mysqli_query($conn,$loeschen);
-        header('Location: ../index.php');
-
-
-    }
-    ?>
+   
 </body>
 </html>
