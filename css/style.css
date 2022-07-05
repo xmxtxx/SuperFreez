@@ -36,3 +36,14 @@ p{
   margin-bottom: 2%;
   text-align: center;
 }
+a{
+  color: black;
+  border-style: solid;
+  border-radius: 5px;
+  text-decoration: none;
+}
+form input{
+  margin-left: 25%;
+  border-radius: 5px;
+  width: 50%;
+}

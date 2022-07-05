@@ -17,7 +17,6 @@ if (isset($_POST['Next'])) {
     echo $reg;
     mysqli_query($conn, $reg);
     $id = $_POST['id'];
-    echo $id;
     header("Location: ./inventory.php?id=$id"); // weiterleitung
 }
 if (isset($_POST['loeschen'])) {
@@ -28,6 +27,7 @@ if (isset($_POST['loeschen'])) {
     $minus = $_POST['lonumber'];
     $idw = $_POST['ddid'];
 
+    if(!empty($minus)){
     $neuemenge = $menge - $minus;
 
 
@@ -45,8 +45,15 @@ if (isset($_POST['loeschen'])) {
         echo $id;
         header("Location: ./inventory.php?id=$id"); // weiterleitung
     }
+}else{
+    $id = $_POST['id'];
+    echo $id;
+    header("Location: ./inventory.php?id=$id"); // weiterleitung
 }
-
+}
+if (isset($_POST['Abruch'])) {
+    header("Location: ./inventory.php?id=$id"); // weiterleitung
+}
 
 ?>
 
@@ -66,6 +73,8 @@ if (isset($_POST['loeschen'])) {
     <?php
     if ($_GET['Next'] == 1) { ?>
 
+        <h1>Produkt Hinzufügen</h1>
+        <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
         <form action="#" method="POST">
             <label for="pname">Produkt Name:</label><br>
             <input type="text" id="pname" name="pname" required><br>
@@ -85,21 +94,22 @@ if (isset($_POST['loeschen'])) {
                 <option value="Gebaeck">Gebaeck</option>
                 <option value="Milch">Milch</option>
                 <option value="Auftauen">Auftauen</option>
-            </select>
+            </select><br>
             <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
             <input type="text" value="<?php echo $_GET['invid']; ?>" name="invid" hidden>
             <input type="submit" value="Hinzufuegen" name="Next">
-            <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
         </form>
 
     <?php
     } else if ($_GET['Next'] == 2) {
         $invid = $_GET['invid'];
-        echo $invid;
         include '../php/conection.php'; // Connection einfügen
         $conn = OpenCon();
         $sql5 = "SELECT * FROM produkt WHERE InventarId=$invid";
         $db_erg5 = mysqli_query($conn, $sql5); ?>
+
+        <h1>Produkt Löschen</h1>
+        <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
         <form method="POST">
             <?php while ($zeile5 = mysqli_fetch_array($db_erg5, MYSQLI_ASSOC)) { ?>
                 <input type="text" value="<?php echo $zeile5['Produktid']; ?>" name="ddid" hidden>
@@ -111,8 +121,7 @@ if (isset($_POST['loeschen'])) {
             }
             ?>
             <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
-            <input type="submit" name="loeschen" value="Löschen">
-            <a href="./inventory.php?id=<?php echo $_GET['id']; ?>">Abbrechen</a>
+            <input type="submit" value="Löschen" name="loeschen">
         </form>
     <?php  } else {
 
