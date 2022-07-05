@@ -48,7 +48,7 @@ include '../php/conection.php'; // Connection einfügen
     $i = 0;
         while ($zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC)) {
             $i++;}
-            
+
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
     
     
@@ -56,9 +56,22 @@ include '../php/conection.php'; // Connection einfügen
  <label for="FreezerName">Freezer Name:</label>
        <input type="text" name="FreezerName" id="FreezerName" value="<?php echo $zeile['FreezerName'] ?>"> <br> 
     <label for= "typ">Typ:</Label>
-        <input type="text" name ="typ" id="typ" value="<?php echo $zeile['Typ']?>">
+        <input type="text" name ="typ" id="typ" value="<?php echo $zeile['Typ']?>"> <br>
     <label for="fach">fach:</label>
         <input type="text" name ="fach" id="fach" value="<?php echo $i?>">
+
+        <?php
+        $anzahl = $zeile2['fanzahl'];
+for($i2 = 1; $i2<=$i;$i2++){
+  $s = "ftemp".$i;
+  $s2 ="id".$i;
+  ?>
+
+    <label for="ftemp">Fach Temperatur:</label><br>
+    <input type="number" id="ftemp" name="<?php echo $s; ?>" min="-40" max="0" required><br>
+    <input type="number" name="<?php echo $s2 ?>" value="<?php echo $i2 ?>" hidden required><br>
+    <input type="number" name="anzahl" value="<?php echo $anzahl ?>" hidden required><br>
+<?php  }?>
 
 
         <br>

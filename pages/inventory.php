@@ -124,7 +124,7 @@ if (isset($_POST['Abruch'])) {
             <input type="text" value="<?php echo $_GET['id']; ?>" name="id" hidden>
             <input type="submit" value="Löschen" name="loeschen">
         </form>
-    <?php } } else {
+    <?php }  }else {
 
     ?>
         <h1>Inventar</h1>
@@ -152,7 +152,6 @@ if (isset($_POST['Abruch'])) {
                 $sql3 = "SELECT * FROM inventar WHERE FachId=$fachid";
                 $db_erg3 = mysqli_query($conn, $sql3);
                 while ($zeile3 = mysqli_fetch_array($db_erg3, MYSQLI_ASSOC)) {
-
                     $invid = $zeile3['InventarId'];
                 }
                 $sql2 = "SELECT * FROM freeze WHERE FreezeId=$freid";
