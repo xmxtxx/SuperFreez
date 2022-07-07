@@ -14,8 +14,11 @@
         header("Location: ../index.php");
     }
     if (isset($_POST['Loeschen'])){
-            
-        $loeschen = "DELETE * from freeze where id = '$id' limit=1 ";
+        include '../php/conection.php'; // Connection einfügen
+        $conn = OpenCon();
+        
+        $id = $_POST['id'];    
+        $loeschen = "DELETE * from freeze where FreezeId = '$id' limit=1 ";
 
         mysqli_query($conn,$loeschen);
         header('Location: ../index.php');
@@ -58,19 +61,25 @@ include '../php/conection.php'; // Connection einfügen
     <label for= "typ">Typ:</Label>
         <input type="text" name ="typ" id="typ" value="<?php echo $zeile['Typ']?>"> <br>
     <label for="fach">fach:</label>
-        <input type="text" name ="fach" id="fach" value="<?php echo $i?>">
+        <input type="number" name ="fach" id="fach" value="<?php echo $i?>"><br>
 
+        <label for="ftemp">Fach Temperaturen:</label><br>
         <?php
         $anzahl = $zeile2['fanzahl'];
 for($i2 = 1; $i2<=$i;$i2++){
   $s = "ftemp".$i;
   $s2 ="id".$i;
+  $f = 1;
   ?>
 
-    <label for="ftemp">Fach Temperatur:</label><br>
-    <input type="number" id="ftemp" name="<?php echo $s; ?>" min="-40" max="0" required><br>
-    <input type="number" name="<?php echo $s2 ?>" value="<?php echo $i2 ?>" hidden required><br>
-    <input type="number" name="anzahl" value="<?php echo $anzahl ?>" hidden required><br>
+    <label for="ftemp">Fach <?php echo $i2?>:</label>
+    <input type="number" id="ftemp" name="<?php echo $s; ?>" value="<?php echo $zeile2['FachTemp']?>"min="-40" max="0" >
+    <input type="number" name="<?php echo $s2 ?>" value="<?php echo $i2 ?>" hidden >
+    <input type="number" name="anzahl" value="<?php echo $anzahl ?>" hidden >
+
+    <input type="submit" value="Bestätigen" name="Bestaetigen">
+       <input type="submit" value="löschen" name="loeschen"><br>
+
 <?php  }?>
 
 
