@@ -1,95 +1,114 @@
 <?php
-    
-    if(isset($_POST['Bestaetigen'])){
-        
+
+if (isset($_POST['Senden'])) {
     include '../php/conection.php'; // Connection einfügen
     $conn = OpenCon();
-        $fname = $_POST['FreezerName'];
-        
-        $id = $_POST['id'];
-        $reg2 = "UPDATE freeze SET FreezerName = '$fname' WHERE FreezeId=$id";
-            echo $reg2;  
+    $freezId = $_POST['freezId'];
 
-        mysqli_query($conn, $reg2);
-        header("Location: ../index.php");
+    $auslesehen2 = "SELECT * FROM fach WHERE FreezeId=$freezId";
+    $auslesehen_erg2 = mysqli_query($conn, $auslesehen2);
+    $i = 1;
+    while ($zeile5 = mysqli_fetch_array($auslesehen_erg2, MYSQLI_ASSOC)) {
+        $temp = $_POST['temp' . $i];
+        $idw = $_POST['id' . $i];
+        $regupd = "UPDATE fach Set FachTemp = $temp WHERE Fachid= $idw";
+        mysqli_query($conn, $regupd);
+        $i++;
     }
-    if (isset($_POST['Loeschen'])){
-        include '../php/conection.php'; // Connection einfügen
-        $conn = OpenCon();
-        
-        $id = $_POST['id'];    
-        $loeschen = "DELETE * from freeze where FreezeId = '$id' limit=1 ";
+    header("Location: ../index.php"); // weiterleitung
+}
 
-        mysqli_query($conn,$loeschen);
-        header('Location: ../index.php');
+if (isset($_POST['Next2'])) {
+    $anzahl = $_POST['fanzahl'];
+    header("Location: ./edit.php?id=" . $_GET['id'] . "&next=2&anzahl=" . $anzahl);
+}
+
+?>
 
 
-    }
-    ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperFreeze</title>
+    <title>Bearbeiten</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <h1>SuperFreeze bearbeitung</h1>
-<?php
-include '../php/conection.php'; // Connection einfügen
-    $conn = OpenCon();
-   // $sqlStatement = "SELECT MAX(fachId) FROM Fach";
-    //$sqlAblauf = "SELECT * from Produkt where ProduktAblauf >= NOW() ORDER BY ProduktAblauf Limit 1 ";
-    //$sqlUpdate = "UPDATE Freeze SET FreezerName='' where FreezeId=1 ";
-    $id = $_GET['id'];
-    $sql = "SELECT * FROM freeze WHERE FreezeId=$id";
-    $db_erg = mysqli_query($conn, $sql);
-    
-    $sql2 = "SELECT * FROM fach WHERE FreezeId=$id";
-    $db_erg2 = mysqli_query($conn, $sql2); 
-    $i = 0;
-        while ($zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC)) {
-            $i++;}
 
-    while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {?>
-    
-    
- <form action="edit.php" method="POST">
- <label for="FreezerName">Freezer Name:</label>
-       <input type="text" name="FreezerName" id="FreezerName" value="<?php echo $zeile['FreezerName'] ?>"> <br> 
-    <label for= "typ">Typ:</Label>
-        <input type="text" name ="typ" id="typ" value="<?php echo $zeile['Typ']?>"> <br>
-    <label for="fach">fach:</label>
-        <input type="number" name ="fach" id="fach" value="<?php echo $i?>"><br>
+<body><?php
+        if (isset($_GET['next'])) {
+            if ($_GET['next'] == 1) {
+                include '../php/conection.php'; // Connection einfügen
+                $conn = OpenCon();
+                $freezId = $_GET['id'];
 
-        <label for="ftemp">Fach Temperaturen:</label><br>
+                $auslesehen3 = "SELECT * FROM fach WHERE FreezeId=$freezId";
+                $auslesehen_erg3 = mysqli_query($conn, $auslesehen3);
+                $i = 0;
+                while ($zeile = mysqli_fetch_array($auslesehen_erg3, MYSQLI_ASSOC)) {
+                    $i = $zeile['FachZahl'];
+                }
+
+                $hi = 8 - $i;
+
+
+        ?>
+            <form action="#" method="POST">
+                <label for="fanzahl">Anzahl Fächer:</label><br>
+                <input type="number" id="fanzahl" name="fanzahl" min="1" max="<?php echo $hi ?>" required><br>
+                <input type="submit" value="Next" name="Next2">
+            </form>
+        <?php  }
+            if ($_GET['next'] == 2) {
+                $d = $_GET['anzahl']; ?>
+            <form action="#" method="POST">
+                <?php
+                for ($i = 0; $i < $d; $i++) {
+                    echo $hi; ?>
+
+                    <label for="ftemp">Fach Temperatur:</label><br>
+                    <input type="number" id="ftemp" name="<?php echo $s; ?>" min="-40" max="0" required><br>
+                    <input type="number" name="jiwd" value="<?php echo $i ?>" hidden required><br>
+
+
+                <?php  }
+                ?>
+                <input type="submit" value="Next" name="Next3">
+            </form>
         <?php
-        $anzahl = $zeile2['fanzahl'];
-for($i2 = 1; $i2<=$i;$i2++){
-  $s = "ftemp".$i;
-  $s2 ="id".$i;
-  $f = 1;
-  ?>
+            }
+        } else {
+        ?>
+        <h1>Fachtemperatur bearbeiten</h1>
+        <a href="./edit.php?id=<?php echo $_GET['id'] ?>&next=1">Fach hinzufügen</a>
 
-    <label for="ftemp">Fach <?php echo $i2?>:</label>
-    <input type="number" id="ftemp" name="<?php echo $s; ?>" value="<?php echo $zeile2['FachTemp']?>"min="-40" max="0" >
-    <input type="number" name="<?php echo $s2 ?>" value="<?php echo $i2 ?>" hidden >
-    <input type="number" name="anzahl" value="<?php echo $anzahl ?>" hidden >
+        <form method="POST">
+            <?php
+            include '../php/conection.php'; // Connection einfügen
+            $conn = OpenCon();
+            $freezId = $_GET['id'];
+            $auslesehen = "SELECT * FROM fach WHERE FreezeId=$freezId";
+            $auslesehen_erg = mysqli_query($conn, $auslesehen);
+            $i = 1;
+            while ($zeile5 = mysqli_fetch_array($auslesehen_erg, MYSQLI_ASSOC)) { ?>
 
-    <input type="submit" value="Bestätigen" name="Bestaetigen">
-       <input type="submit" value="löschen" name="loeschen"><br>
 
-<?php  }?>
+                <label for="temp<?php echo $i ?>;">Temperatur für Fach: <?php echo $zeile5['FachZahl']; ?></label>
+                <input type="number" name="temp<?php echo $i; ?>" value="<?php echo $zeile5['FachTemp']; ?>"><br>
+                <input type="text" name="id<?php echo $i; ?>" value="<?php echo $zeile5['Fachid']; ?>" hidden>
 
+            <?php $i++;
+            }
 
-        <br>
-        <input type="text" name="id" value="<?php echo $_GET['id']; ?>" hidden>
-       <input type="submit" value="Bestätigen" name="Bestaetigen">
-       <input type="submit" value="löschen" name="loeschen">
-    <form>
-    <?php }?>
+            ?>
+            <input type="text" name="freezId" value="<?php echo $freezId; ?>" hidden>
+            <input type="submit" value="Senden" name="Senden">
+        </form>
+    <?php } ?>
 
-   
 </body>
+
 </html>
