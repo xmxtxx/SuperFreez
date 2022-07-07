@@ -2,7 +2,7 @@
 Project for learning how to work with a team
 By 
 * xMxtxx
-* NaatuTm
+* NaatuTM
 * Cedinator
 * Andres-Schertenleib
 
