@@ -83,7 +83,7 @@ if (isset($_POST['Next2'])) {
         } else {
         ?>
         <h1>Fachtemperatur bearbeiten</h1>
-        <a href="./edit.php?id=<?php echo $_GET['id'] ?>&next=1">Fach hinzufügen</a>
+        <!-- <a href="./edit.php?id=<?php // echo $_GET['id'] ?>&next=1">Fach hinzufügen</a> -->
 
         <form method="POST">
             <?php
