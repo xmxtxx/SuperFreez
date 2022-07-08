@@ -78,7 +78,7 @@ if(!isset($_SESSION['logged'])){
                     
                     <p>Inventar: <a href="./pages/inventory.php?id='<?php echo $id ?>'">Bearbeiten</a></p>
                     <p>Typ: <?php echo $zeile['Typ']; ?></p>
-                    <p><a href="./pages/edit.php?id='<?php echo $id ?>'" class="option">SuperFreezer verwalten</a></p>
+                 <!--   <p><a href="./pages/edit.php?id='<?php echo $id ?>'" class="option">SuperFreezer verwalten</a></p>-->
                 </td>
             </tr>
 
